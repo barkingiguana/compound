@@ -16,11 +16,11 @@ module BarkingIguana
         def hosts
           h = hostgroups
           h.reject! { |hg| hg[0].empty? }
-          hosts = h.values.flatten.uniq { |i| i['uri'] }
-          hosts.each do |host|
-            host['name'].gsub!(/ .*/, '')
+          hosts = h.values.flatten.uniq { |h| h['uri'] }
+          hosts.map do |data|
+            name = data['name'].gsub(/ .*/, '')
+            Host.new name: name, uri: data['uri']
           end
-          hosts
         end
       end
     end

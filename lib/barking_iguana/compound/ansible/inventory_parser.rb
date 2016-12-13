@@ -65,7 +65,6 @@ module BarkingIguana
         end
 
         def self.load_targets(file)
-
           f = File.open(file).read
           groups = Hash.new
           group = ''
