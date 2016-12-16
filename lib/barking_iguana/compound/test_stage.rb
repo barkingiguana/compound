@@ -1,11 +1,11 @@
 module BarkingIguana
   module Compound
     class TestStage
-      attr_accessor :test, :stage_directory
+      attr_accessor :test, :directory
 
-      def initialize test, stage_directory
+      def initialize test, directory
         self.test = test
-        self.stage_directory = stage_directory
+        self.directory = directory
       end
 
       def actions
@@ -30,7 +30,7 @@ module BarkingIguana
       end
 
       def display_name
-        test.name + ' stage ' + stage_directory
+        test.name + ' stage ' + directory
       end
 
       def inventory_path
@@ -38,7 +38,7 @@ module BarkingIguana
       end
 
       def stage_file_with_fallback file_name
-        stage_file = File.expand_path file_name, stage_directory
+        stage_file = File.expand_path file_name, directory
         return stage_file if File.exists? stage_file
         File.expand_path file_name, test.directory
       end
