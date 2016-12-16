@@ -36,16 +36,17 @@ module BarkingIguana
       end
 
       def inventory_path
-        File.join stage_file_root, 'inventory'
+        stage_file_with_fallback 'inventory'
       end
 
-      def stage_file_root
-        return test.directory if test.simple_test?
-        File.expand_path stage_directory, test.directory
+      def stage_file_with_fallback file_name
+        stage_file = File.expand_path file_name, stage_directory
+        return stage_file if File.exists? stage_file
+        File.expand_path file_name, test.directory
       end
 
       def playbook_path
-        "#{stage_file_root}/playbook.yml"
+        stage_file_with_fallback 'playbook.yml'
       end
 
       def inventory
