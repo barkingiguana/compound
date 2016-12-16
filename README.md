@@ -32,7 +32,7 @@ repository:
 ```ruby
 require 'barking_iguana/compound'
 ansible_control_repo = File.dirname __FILE__
-BarkingIguana::Compound.new('test/compound', ansible_control_repo).define_rake_tasks
+BarkingIguana::Compound::TestSuite.new('test/compound', ansible_control_repo).define_rake_tasks
 ```
 
 Now let's define a test managing hosts files. It's a trivial test, but it
