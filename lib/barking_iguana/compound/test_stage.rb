@@ -26,12 +26,10 @@ module BarkingIguana
       end
 
       def name
-        return if test.simple_test?
-        stage_directory
+        directory
       end
 
       def display_name
-        return test.name if test.simple_test?
         test.name + ' stage ' + stage_directory
       end
 

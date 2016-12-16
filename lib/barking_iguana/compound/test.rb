@@ -20,17 +20,13 @@ module BarkingIguana
       end
 
       def stages
-        return [ TestStage.new(self, directory) ] if simple_test?
         Dir[directory + '/*'].select { |d| File.directory? d }.map { |s| TestStage.new self, File.basename(s) }
-      end
-
-      def simple_test?
-        File.exists? "#{directory}/playbook.yml"
       end
 
       def run
         benchmark "test #{name}" do
           begin
+            logger.debug { "#{name}: found #{stages.size} stages: #{stages.map(&:name).map(&:inspect).join(', ')}" }
             stages.each &:run
           ensure
             teardown

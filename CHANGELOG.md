@@ -6,6 +6,10 @@ Entries are in reverse chronological order.
 
   Add release notes here, as things are added to the project.
 
+  * Stop supporting the concept of 'simple' tests - tests which have only
+    one implicit stage. Compound feels most useful when focussing on
+    lifecycle style tests which have several stages.
+
 ## *0.1.2* (2016-12-16)
 
   Allow a default inventory and playbook for each test, living in the test
