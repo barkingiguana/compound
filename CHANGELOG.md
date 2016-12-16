@@ -2,6 +2,10 @@
 
 Entries are in reverse chronological order.
 
+## *0.1.3-alpha* (Current Development)
+
+  Add release notes here, as things are added to the project.
+
 ## *0.1.2* (2016-12-16)
 
   Allow a default inventory and playbook for each test, living in the test
