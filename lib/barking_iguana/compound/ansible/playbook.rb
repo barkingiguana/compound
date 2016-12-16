@@ -62,15 +62,16 @@ module BarkingIguana
 
         def clean_up
           return unless run_from
-          wrapper_playbook.close
-          wrapper_playbook.delete
+          FileUtils.remove_file wrapper_playbook, true
         end
 
+        # TODO: Symlink the playbook to wrapper_playbook.path
+        # so we can use the group_vars, host_vars, etc.
         def playbook_path
           return file unless run_from
-          wrapper_playbook.write wrapper_playbook_content
-          wrapper_playbook.rewind
-          wrapper_playbook.path
+          tempfile = wrapper_playbook
+          FileUtils.symlink file, tempfile
+          tempfile
         end
 
         def wrapper_playbook_content
@@ -78,7 +79,15 @@ module BarkingIguana
         end
 
         def wrapper_playbook
-          @wrapper_playbook ||= Tempfile.new(['wrapper-playbook-', '.yml'], run_from)
+          @wrapper_playbook ||= begin
+            name = [
+              'playbook',
+              Process.pid,
+              Time.now.to_i,
+              rand(9_999_999_999).to_s.rjust(10, '0')
+            ].join('-') + '.yml'
+            File.expand_path(name, run_from)
+          end
         end
 
         def command
