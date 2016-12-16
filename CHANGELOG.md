@@ -6,6 +6,10 @@ Entries are in reverse chronological order.
 
   Add release notes here, as things are added to the project.
 
+  * Simplify asking Compound to define Rake tasks by allowing it to guess
+    the directories involved. These can still be overridden, but they
+    shouldn't normally need to be.
+
   * Stop supporting the concept of 'simple' tests - tests which have only
     one implicit stage. Compound feels most useful when focussing on
     lifecycle style tests which have several stages.

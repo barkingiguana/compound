@@ -24,15 +24,14 @@ Or install it yourself as:
 
 Install it, as per above.
 
-Normally you'll use Compond as part of a Rake task, so include it in your
-`Rakefile`. Tell it to define Rake tasks for your compound tests - we assume
-these live in `test/compound` - and where your playbooks live, your control
-repository:
+Normally you'll use Compond as part of a Rake task, so include it in a
+`Rakefile` in the root of your project.
+
+Tell Compound to define Rake tasks for your compound tests:
 
 ```ruby
 require 'barking_iguana/compound'
-ansible_control_repo = File.dirname __FILE__
-BarkingIguana::Compound::TestSuite.new('test/compound', ansible_control_repo).define_rake_tasks
+BarkingIguana::Compound::TestSuite.define_rake_tasks
 ```
 
 Now let's define a test managing hosts files. It's a trivial test, but it

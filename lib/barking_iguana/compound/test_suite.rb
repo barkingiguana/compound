@@ -1,6 +1,10 @@
 module BarkingIguana
   module Compound
     class TestSuite
+      def self.define_rake_tasks
+        new.define_rake_tasks
+      end
+
       def define_rake_tasks
         Rake::Task.define_task name do
           run
@@ -23,9 +27,17 @@ module BarkingIguana
       attr_accessor :directory
       private :directory=
 
-      def initialize directory, control_directory
-        self.directory = directory
-        self.control_directory = control_directory
+      def initialize(directory = nil, control_directory: nil)
+        self.control_directory = control_directory || guess_directory
+        self.directory = directory || File.expand_path("test/compound", control_directory)
+      end
+
+      def guess_directory
+        caller.detect do |trace|
+          path = trace.split(/:/, 2)[0]
+          file = File.basename path
+          break File.dirname path if file == 'Rakefile'
+        end
       end
 
       def tests
