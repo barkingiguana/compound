@@ -116,18 +116,27 @@ Let's create a simple inventory file with 2 hosts and 1 group.
 The inventory file for each stage lives in the stage directory in a file called
 `inventory`, so in our example so for that's `test/compound/hosts_file_management/000-setup/inventory`.
 
-They're just normal Ansible inventory files, with only one restriction: the
-`ansible_host` _must_ start with `10.8.`.
+These are normal Ansible inventory files:
 
 ```
-[linux]
-host001 ansible_host=10.8.100.11
-host002 ansible_host=10.8.100.12
+[all:children]
+web
+application
+database
+
+[web]
+host001
+
+[application]
+host002
+
+[database]
+host003
 ```
 
 When the setup action for a stage with this inventory is run, Compound will
-launch two virtual machines for you to test with, `host001` and `host002` with
-the respective IP addresses.
+launch three virtual machines for you to test with, `host001`, `host002`, and
+`host003`. It will assign them IP addresses in the `10.8.42/24` range.
 
 ##### The Converge Action
 

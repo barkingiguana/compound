@@ -12,9 +12,6 @@ module BarkingIguana
 
       def initialize hosts = [], implementation_options = {}
         self.hosts = hosts
-        if hosts.any? { |h| h.uri !~ /^10\.8\./ }
-          raise "Your hosts must be in the 10.8/16 CIDR to be managed by me"
-        end
         self.implementation = Vagrant.new self, implementation_options
         implementation.prepare
       end

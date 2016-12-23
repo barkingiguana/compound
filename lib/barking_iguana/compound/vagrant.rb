@@ -42,13 +42,26 @@ class Vagrant
     end
   end
 
-  def write_file
+  def write_vagrant_file
     logger.debug { "Writing Vagrantfile to #{vagrant_file_path}" }
     File.open vagrant_file_path, 'w' do |f|
       f.puts vagrant_file_content
     end
   end
-  alias_method :prepare, :write_file
+
+  def assign_ip_addresses
+    hosts.each do |h|
+      next if valid_ip_address? h.ip_address
+      ip_address = next_available_ip_address
+      logger.debug { "Assigning #{h.name} an IP address: #{ip_address}" }
+      h.assign_ip_address ip_address
+    end
+  end
+
+  def prepare
+    assign_ip_addresses
+    write_vagrant_file
+  end
 
   def vagrant_file_content
     ERB.new(vagrant_file_template).result binding
@@ -73,7 +86,25 @@ class Vagrant
     end
   end
 
+  private
+
   def hosts
     manager.hosts
+  end
+
+  def next_available_ip_address
+    unassigned_ip_addresses.shift
+  end
+
+  def valid_ip_address? ip_address
+    ip_address =~ /^10\.8\./
+  end
+
+  def unassigned_ip_addresses
+    @unassigned_ip_addresses ||= begin
+      assignable_ip_addresses = (10..200).to_a.map { |dd| "10.8.42.#{dd}" }
+      assigned_ip_addresses = hosts.map(&:ip_address)
+      assignable_ip_addresses - assigned_ip_addresses
+                                 end
   end
 end

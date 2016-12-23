@@ -6,6 +6,9 @@ Entries are in reverse chronological order.
 
   Add release notes here, as things are added to the project.
 
+  * Stop requiring that the inventory files specify an IP address. If no
+    IP address is provided for a VM it will be assigned an unallocated one.
+
   * Simplify asking Compound to define Rake tasks by allowing it to guess
     the directories involved. These can still be overridden, but they
     shouldn't normally need to be.
