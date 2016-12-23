@@ -2,11 +2,36 @@
 
 Compound testing for Ansible atoms.
 
-When you need to test several roles and/or playbooks together over their lifetime e.g. testing database failover and recovery.
+Sometimes we need to test the interaction of several roles and/or playbooks,
+especially over the expected lifetime of our tech stack.
+
+Say we have a typical three tier web app; web, app and database tiers.
+
+When an app server is put into maintenance mode, does the reverse proxy on the
+web tier pick that up? Does it reconfigure the pool so that requests no longer
+hit that app server? Does it do so in a reasonable time?
+
+Previously we could test that the configuration of the reverse proxy was what we
+expected to see on disk, but testing that it behaved in the way that we thought
+it would was a case of deploying to a test servers and poking at the result
+manually. Error prone, slow, not terribly maintainable, and it can in many cases
+block uses of a server that it typically a shared resource. Very not fun.
+
+With Compound, we can write Ansible inventories to represent real world
+situations, run playbooks against them to install and configure the software we
+want to test or simulate real world behaviour such as turning on maintenance
+mode, and then assert the behaviour we expect using serverspec style tests.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+I assume you have Ruby and `bundler` already installed, because I'm a Ruby
+developer and this is a Ruby project. If you don't, you'll need to install
+them now.
+
+If you don't already have one, create a file called `Gemfile` in the root of
+your Ansible control repository.
+
+Add this line to your `Gemfile`:
 
 ```ruby
 gem 'barking_iguana-compound'
@@ -16,9 +41,12 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Or install it yourself by running:
 
     $ gem install barking_iguana-compound
+
+You'll also need Vagrant, and VirtualBox, installed where you'd like to run
+your tests.
 
 ## Usage
 
@@ -158,7 +186,9 @@ the correct hosts, you don't need to worry about SSH keys, passwords or ports.
 
 ### Running the tests
 
-Since we've asked Compound to define rake tasks above, we can run those. The tasks generated are based on the directory names we use in the tests. The above test can be run like this:
+Since we've asked Compound to define rake tasks above, we can run those. The
+tasks generated are based on the directory names we use in the tests. The above
+test can be run like this:
 
     $ bundle exec rake compound:hosts_file_management
 
@@ -168,10 +198,19 @@ You can see a list of all tests by asking Rake to list them:
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run `bin/setup` to install dependencies. Then, run
+`rake spec` to run the tests. You can also run `bin/console` for an interactive
+prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`. To
+release a new version, update the version number in `version.rb`, and then run
+`bundle exec rake release`, which will create a git tag for the version, push
+git commits and tags, and push the `.gem` file to [rubygems.org][0].
 
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/barkingiguana/compound.
+
+If you'd like to contribute features, please do discuss them by opening an issue on GitHub.
+
+[0]: https://rubygems.org
