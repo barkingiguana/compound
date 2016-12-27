@@ -2,9 +2,11 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.4* (Current Development)
+## *0.1.5* (Current Development)
 
   Add release notes here, as things are added to the project.
+
+## *0.1.4* (2016-12-27)
 
   * Bug fix: allow connecting to VMs when we generate their IP address on
     the fly.
@@ -12,7 +14,7 @@ Entries are in reverse chronological order.
   * Bug fix: correctly expand the staging directory when searching for
     the stages `playbook.yml` or `inventory` file.
 
-## *0.1.3*
+## *0.1.3* (2016-12-27)
 
   * Various bug fixes - mostly typos that would stop the full test run
     happening.
