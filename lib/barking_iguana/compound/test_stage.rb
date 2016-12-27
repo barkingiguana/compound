@@ -37,10 +37,21 @@ module BarkingIguana
         stage_file_with_fallback 'inventory'
       end
 
+      def stage_directory
+        File.expand_path directory, test.directory
+      end
+
       def stage_file_with_fallback file_name
-        stage_file = File.expand_path file_name, directory
-        return stage_file if File.exists? stage_file
-        File.expand_path file_name, test.directory
+        logger.debug { "Searching for #{file_name.inspect}" }
+        stage_file = File.expand_path file_name, stage_directory
+        logger.debug { "Checking #{stage_file.inspect}" }
+        if File.exists? stage_file
+          logger.debug { "Found #{file_name.inspect} at #{stage_file.inspect}" }
+          return stage_file
+        end
+        test_file = File.expand_path file_name, test.directory
+        logger.debug { "Assuming it'll be at #{test_file.inspect}" }
+        test_file
       end
 
       def playbook_path
@@ -85,7 +96,10 @@ module BarkingIguana
       end
 
       def converge
-        return unless File.exists? playbook_path
+        unless File.exists? playbook_path
+          logger.debug { "Not running anything because #{playbook_path.inspect} does not exist" }
+          return
+        end
         playbook.run
       end
 

@@ -6,6 +6,9 @@ Entries are in reverse chronological order.
 
   Add release notes here, as things are added to the project.
 
+  * Bug fix: correctly expand the staging directory when searching for
+    the stages `playbook.yml` or `inventory` file.
+
 ## *0.1.3*
 
   * Various bug fixes - mostly typos that would stop the full test run
