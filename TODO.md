@@ -10,6 +10,3 @@
 * A host doesn't have a `uri`, it's got an IP address.
 
 * We should support the ansible remote user attributes in the inventory, for each host.
-
-* Host names with underscores are valid in the Ansible inventory, but not as
-  host names for Vagrant. We should map these to valid values.

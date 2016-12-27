@@ -4,7 +4,7 @@ module BarkingIguana
       attr_accessor :name, :uri, :state
 
       def initialize(name:, uri:)
-        self.name = name
+        self.name = name.gsub(/[^a-z0-9\-]/, '-')
         self.uri = uri
         self.state = 'unknown'
       end
