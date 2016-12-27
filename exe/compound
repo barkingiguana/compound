@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require 'barking_iguana/compound'
+
+BarkingIguana::Compound::CommandLineClient.new(ARGV).run

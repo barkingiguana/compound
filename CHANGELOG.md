@@ -2,9 +2,12 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.3-alpha* (Current Development)
+## *0.1.3-2* (Current Development)
 
   Add release notes here, as things are added to the project.
+
+  * Add a command line tool, so we don't need the `Rakefile`. Currently this
+    only handles running the entire test suite.
 
   * Stop requiring that the inventory files specify an IP address. If no
     IP address is provided for a VM it will be assigned an unallocated one.
