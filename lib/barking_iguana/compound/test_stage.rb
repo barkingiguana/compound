@@ -34,7 +34,7 @@ module BarkingIguana
       end
 
       def inventory_path
-        stage_file_with_fallback 'inventory'
+        @inventory_path ||= stage_file_with_fallback('inventory')
       end
 
       def stage_directory
@@ -55,15 +55,39 @@ module BarkingIguana
       end
 
       def playbook_path
-        stage_file_with_fallback 'playbook.yml'
+        @playbook_path ||= stage_file_with_fallback('playbook.yml')
       end
 
-      def inventory
+      def original_inventory
         Ansible.inventory inventory_path
       end
 
+      def generated_inventory
+        @generated_inventory ||= generate_inventory
+      end
+
+      def generate_inventory
+        benchmark "#{name}: generating inventory for test stage" do
+          Dir.mktmpdir('inventory').tap do |d|
+            logger.debug { "#{name}: inventory directory is #{d.inspect}" }
+            connection_file = File.expand_path 'connection', d
+            Ansible::InventoryWriter.new(connection_file).tap do |i|
+              benchmark "#{name}: generating connection inventory at #{connection_file}" do
+                test.hosts.each do |h|
+                  i.add_host h
+                end
+                i.write_file
+              end
+            end
+            original_file = File.expand_path 'original', d
+            logger.debug { "#{name}: copying original inventory to #{original_file} from #{inventory_path}" }
+            FileUtils.copy inventory_path, original_file
+          end
+        end
+      end
+
       def hosts
-        inventory.hosts
+        original_inventory.hosts
       end
 
       def control_directory
@@ -71,7 +95,7 @@ module BarkingIguana
       end
 
       def playbook
-        Ansible.playbook(playbook_path, run_from: control_directory).inventory(inventory.path).private_key("#{ENV['HOME']}/.vagrant.d/insecure_private_key").user('vagrant').stream_to(logger).verbosity(2).diff
+        Ansible.playbook(playbook_path, run_from: control_directory).inventory(generated_inventory).stream_to(logger).verbosity(2).diff
       end
 
       def suite
@@ -79,9 +103,9 @@ module BarkingIguana
       end
 
       def setup
-        desired_hosts = inventory.hosts.map { |h| h.name  }.sort
+        desired_hosts = original_inventory.hosts.sort.map(&:name)
         logger.debug { "Desired hosts for #{display_name}: #{desired_hosts.join(', ')}" }
-        active_hosts = host_manager.active.map { |h| h.name }.sort
+        active_hosts = host_manager.active.sort.map(&:name)
         logger.debug { "Active hosts for #{display_name}: #{active_hosts.join(', ')}" }
         hosts_to_launch = desired_hosts - active_hosts
         logger.debug { "Launch hosts for #{display_name}: #{hosts_to_launch.join(', ')}" }
@@ -101,6 +125,9 @@ module BarkingIguana
           return
         end
         playbook.run
+      ensure
+        logger.debug { "Removing generated inventory from #{generated_inventory}" }
+        # FileUtils.rm_r generated_inventory
       end
 
       def verify

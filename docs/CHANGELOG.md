@@ -6,6 +6,9 @@ Entries are in reverse chronological order.
 
   Add release notes here, as things are added to the project.
 
+  * Bug fix: allow connecting to VMs when we generate their IP address on
+    the fly.
+
   * Bug fix: correctly expand the staging directory when searching for
     the stages `playbook.yml` or `inventory` file.
 

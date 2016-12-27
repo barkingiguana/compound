@@ -2,13 +2,14 @@ module BarkingIguana
   module Compound
     module Ansible
       class Playbook
-        attr_accessor :file, :inventory_path, :limit_pattern, :run_from, :user_name, :private_key_file, :io, :output_verbosity, :show_diff
+        attr_accessor :file, :inventory_paths, :limit_pattern, :run_from, :user_name, :private_key_file, :io, :output_verbosity, :show_diff
 
         def initialize file, run_from: nil
           self.file = file
           self.run_from = run_from
           self.output_verbosity = 0
           self.show_diff = false
+          self.inventory_paths = []
         end
 
         def verbosity n
@@ -27,7 +28,7 @@ module BarkingIguana
         end
 
         def inventory name
-          self.inventory_path = name
+          self.inventory_paths << name
           self
         end
 
@@ -67,15 +68,11 @@ module BarkingIguana
 
         # TODO: Symlink the playbook to wrapper_playbook.path
         # so we can use the group_vars, host_vars, etc.
-        def playbook_path
+        def playbook_paths
           return file unless run_from
           tempfile = wrapper_playbook
           FileUtils.symlink file, tempfile
           tempfile
-        end
-
-        def wrapper_playbook_content
-          "---\n- include: #{file}"
         end
 
         def wrapper_playbook
@@ -91,13 +88,16 @@ module BarkingIguana
         end
 
         def command
-          c = "env ANSIBLE_RETRY_FILES_ENABLED=no ansible-playbook #{playbook_path} -i #{inventory_path}"
-          c << " -l #{limit_pattern}," unless limit_pattern.nil?
-          c << " -u #{user_name}" unless user_name.nil?
-          c << " -#{'v' * output_verbosity}" if output_verbosity > 0
-          c << " --diff" if show_diff
-          c << " --private-key=#{private_key_file}" unless private_key_file.nil?
-          c
+          c = ["env ANSIBLE_RETRY_FILES_ENABLED=no ansible-playbook #{playbook_paths}"]
+          inventory_paths.each do |i|
+            c << "-i #{i}"
+          end
+          c << "-l #{limit_pattern}," unless limit_pattern.nil?
+          c << "-u #{user_name}" unless user_name.nil?
+          c << "-#{'v' * output_verbosity}" if output_verbosity > 0
+          c << "--diff" if show_diff
+          c << "--private-key=#{private_key_file}" unless private_key_file.nil?
+          c.join ' '
         end
       end
     end

@@ -19,7 +19,7 @@ module BarkingIguana
           hosts = h.values.flatten.uniq { |h| h['uri'] }
           hosts.map do |data|
             name = data['name'].gsub(/ .*/, '')
-            Host.new name: name, uri: data['uri']
+            Host.new name: name, ip_address: data['uri']
           end
         end
       end

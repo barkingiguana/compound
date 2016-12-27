@@ -56,7 +56,11 @@ module BarkingIguana
       end
 
       def host_manager
-        @host_manger ||= HostManager.new(hosts, driver_options)
+        @host_manger ||= begin
+          # FIXME: Implement uniqueness operators on Host
+          hosts = stages.map(&:hosts).flatten.uniq(&:ip_address).sort
+          HostManager.new(hosts, driver_options)
+        end
       end
 
       def driver_options
@@ -72,8 +76,7 @@ module BarkingIguana
       end
 
       def hosts
-        # FIXME: Implement uniqueness operators on Host
-        stages.map(&:hosts).flatten.uniq { |h| h.uri }
+        host_manager.all
       end
     end
   end
