@@ -222,4 +222,11 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/barkin
 
 If you'd like to contribute features, please do discuss them by opening an issue on GitHub.
 
+Some things I'd like to tackle are listed in [docs/TODO.md][1].
+
+Please keep [docs/CHANGELOG.md][2] updated as you add/remove/change things.
+
+
 [0]: https://rubygems.org
+[1]: http://barkingiguana.com/compound/TODO
+[2]: http://barkingiguana.com/compound/CHANGELOG
