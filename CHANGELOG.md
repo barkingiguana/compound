@@ -6,6 +6,9 @@ Entries are in reverse chronological order.
 
   Add release notes here, as things are added to the project.
 
+  * Various bug fixes - mostly typos that would stop the full test run
+    happening.
+
   * Add a command line tool, so we don't need the `Rakefile`. Currently this
     only handles running the entire test suite.
 

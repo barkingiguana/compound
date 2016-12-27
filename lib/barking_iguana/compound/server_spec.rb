@@ -40,7 +40,7 @@ class ServerSpec
   end
 
   def root_dir
-    stage.stage_file_root
+    stage.directory
   end
 
   def hosts
