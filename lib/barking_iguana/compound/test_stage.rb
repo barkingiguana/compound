@@ -59,7 +59,7 @@ module BarkingIguana
       end
 
       def original_inventory
-        Ansible.inventory inventory_path
+        @original_inventory ||= Ansible.inventory(inventory_path)
       end
 
       def generated_inventory
@@ -73,7 +73,8 @@ module BarkingIguana
             connection_file = File.expand_path 'connection', d
             Ansible::InventoryWriter.new(connection_file).tap do |i|
               benchmark "#{name}: generating connection inventory at #{connection_file}" do
-                test.hosts.each do |h|
+                hosts.each do |host|
+                  h = test.host_manager.find_by_name host.inventory_name
                   i.add_host h
                 end
                 i.write_file
@@ -103,7 +104,7 @@ module BarkingIguana
       end
 
       def setup
-        desired_hosts = original_inventory.hosts.sort.map(&:name)
+        desired_hosts = hosts.sort.map(&:name)
         logger.debug { "Desired hosts for #{display_name}: #{desired_hosts.join(', ')}" }
         active_hosts = host_manager.active.sort.map(&:name)
         logger.debug { "Active hosts for #{display_name}: #{active_hosts.join(', ')}" }

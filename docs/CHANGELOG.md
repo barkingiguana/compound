@@ -4,7 +4,8 @@ Entries are in reverse chronological order.
 
 ## *0.1.5* (Current Development)
 
-  Add release notes here, as things are added to the project.
+  * Bug fix: Only generate connection inventory for those hosts in the current
+    stage.
 
 ## *0.1.4* (2016-12-27)
 

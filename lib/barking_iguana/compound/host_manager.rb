@@ -53,7 +53,10 @@ module BarkingIguana
       end
 
       def find_by_name name
-        all.detect { |h| h.name == name }
+        logger.debug { "Finding host with name #{name}" }
+        all.detect { |h| h.inventory_name == name }.tap do |h|
+          logger.debug { "Result: #{h.inspect}" }
+        end
       end
     end
   end
