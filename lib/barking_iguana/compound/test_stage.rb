@@ -95,8 +95,13 @@ module BarkingIguana
         test.suite.control_directory
       end
 
+      def ansible_verbosity
+        return 2 unless ENV['ANSIBLE_VERBOSITY']
+        ENV['ANSIBLE_VERBOSITY'].to_i
+      end
+
       def playbook
-        Ansible.playbook(playbook_path, run_from: control_directory).inventory(generated_inventory).stream_to(logger).verbosity(2).diff
+        Ansible.playbook(playbook_path, run_from: control_directory).inventory(generated_inventory).stream_to(logger).verbosity(ansible_verbosity).diff
       end
 
       def suite

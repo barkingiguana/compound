@@ -6,6 +6,10 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Allow setting verbosity of Ansible output using `ANSIBLE_VERBOSITY`. This
+    will only be seen if `LOG_LEVEL` is `debug`, but it can be handy even in
+    that case.
+
 ## *0.1.5* (2016-12-29)
 
   * Bug fix: Only generate connection inventory for those hosts in the current
