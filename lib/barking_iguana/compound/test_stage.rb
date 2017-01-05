@@ -77,6 +77,7 @@ module BarkingIguana
                   h = test.host_manager.find_by_name host.inventory_name
                   i.add_host h
                 end
+                logger.debug { "#{name}: writing connection inventory:\n#{i.to_s}" }
                 i.write_file
               end
             end

@@ -6,6 +6,8 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Bug fix: set correct Ansible variable for SSH key to access VMs.
+
   * Allow setting verbosity of Ansible output using `ANSIBLE_VERBOSITY`. This
     will only be seen if `LOG_LEVEL` is `debug`, but it can be handy even in
     that case.

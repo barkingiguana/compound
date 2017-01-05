@@ -2,6 +2,8 @@ module BarkingIguana
   module Compound
     module Ansible
       class InventoryWriter
+        include BarkingIguana::Logging::Helper
+
         attr_accessor :path
         private :path=
 
@@ -29,10 +31,14 @@ module BarkingIguana
 
         def write_file
           File.open path, 'w' do |inventory|
-            hosts.sort_by(&:name).each do |h|
-              inventory.puts "#{h.inventory_name} ansible_host=#{h.ip_address} ansible_user=#{h.ssh_username} ansible_ssh_private_key_path=#{h.ssh_key} ansible_ssh_extra_args=\"#{h.ssh_extra_args}\""
-            end
+            inventory.puts to_s
           end
+        end
+
+        def to_s
+          hosts.sort_by(&:name).map do |h|
+            %Q(#{h.inventory_name} ansible_host=#{h.ip_address} ansible_user=#{h.ssh_username} ansible_ssh_private_key_file=#{h.ssh_key} ansible_ssh_extra_args="#{h.ssh_extra_args}")
+          end.join("\n")
         end
       end
     end
