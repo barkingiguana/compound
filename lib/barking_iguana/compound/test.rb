@@ -68,7 +68,16 @@ module BarkingIguana
         logger.debug { "Does #{vagrant_file_template_path} exist? -> #{File.exists? vagrant_file_template_path}" }
         options[:vagrant_file_template_path] = vagrant_file_template_path if File.exists? vagrant_file_template_path
         options[:root] = directory
+        options[:environment] = suite.environment.merge environment
         options
+      end
+
+      def environment_file
+        File.join directory, 'env'
+      end
+
+      def environment
+        @environment ||= Environment.new(environment_file)
       end
 
       def vagrant_file_template_path

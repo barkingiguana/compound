@@ -33,8 +33,9 @@ class Vagrant
       logger.debug { "MERGED ARGS: #{merged_args.inspect}" }
       command_line = "/usr/local/bin/vagrant #{command} #{merged_args}".strip
       logger.debug { "COMMAND LINE: #{command_line.inspect}" }
-      c = Mixlib::ShellOut.new command_line, cwd: root, env: environment, live_stream: logger
-      benchmark "running command #{command_line.inspect} in #{root.inspect} with env #{environment.inspect}" do
+      logger.debug { "COMMAND ENV: #{environment.inspect}" }
+      c = Mixlib::ShellOut.new command_line, cwd: root, env: environment.to_h, live_stream: logger
+      benchmark "running command #{command_line.inspect} in #{root.inspect} with env #{environment.to_h.inspect}" do
         c.run_command
       end
       c.error!

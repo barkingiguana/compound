@@ -6,6 +6,9 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Allow setting ENV variables for the Vagrant command by adding an `env` file
+    to the test suite or individual test.
+
   * Bug fix: set correct Ansible variable for SSH key to access VMs.
 
   * Allow setting verbosity of Ansible output using `ANSIBLE_VERBOSITY`. This

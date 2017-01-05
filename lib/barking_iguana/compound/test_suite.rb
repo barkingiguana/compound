@@ -68,6 +68,14 @@ module BarkingIguana
         end
       end
 
+      def environment_file
+        File.join directory, 'env'
+      end
+
+      def environment
+        @environment ||= Environment.new(environment_file)
+      end
+
       private
 
       def test_directories
