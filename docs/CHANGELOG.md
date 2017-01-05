@@ -2,9 +2,11 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.6* (Current Development)
+## *0.1.7* (Current Development)
 
 Add release notes here, as things are added to the project.
+
+## *0.1.6* (2017-01-05)
 
   * Allow setting ENV variables for the Vagrant command by adding an `env` file
     to the test suite or individual test.
