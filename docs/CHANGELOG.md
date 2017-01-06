@@ -2,9 +2,11 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.7* (Current Development)
+## *0.1.8* (Current Development)
 
 Add release notes here, as things are added to the project.
+
+## *0.1.7* (2017-01-06)
 
   * Allow setting the Vagrantfile.erb template in the root of the test suite to
     provide a default to use if there are no test specific customisations
