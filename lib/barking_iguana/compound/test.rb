@@ -63,6 +63,19 @@ module BarkingIguana
         end
       end
 
+      def test_file_with_fallback file_name
+        logger.debug { "Searching for #{file_name.inspect}" }
+        test_file = File.expand_path file_name, directory
+        logger.debug { "Checking #{test_file.inspect}" }
+        if File.exists? test_file
+          logger.debug { "Found #{file_name.inspect} at #{test_file.inspect}" }
+          return test_file
+        end
+        suite_file = File.expand_path file_name, suite.directory
+        logger.debug { "Assuming it'll be at #{suite_file.inspect}" }
+        suite_file
+      end
+
       def driver_options
         options = {}
         logger.debug { "Does #{vagrant_file_template_path} exist? -> #{File.exists? vagrant_file_template_path}" }
@@ -81,7 +94,7 @@ module BarkingIguana
       end
 
       def vagrant_file_template_path
-        File.join directory, 'Vagrantfile.erb'
+        test_file_with_fallback 'Vagrantfile.erb'
       end
 
       def hosts

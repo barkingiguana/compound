@@ -6,6 +6,10 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Allow setting the Vagrantfile.erb template in the root of the test suite to
+    provide a default to use if there are no test specific customisations
+    required.
+
 ## *0.1.6* (2017-01-05)
 
   * Allow setting ENV variables for the Vagrant command by adding an `env` file
