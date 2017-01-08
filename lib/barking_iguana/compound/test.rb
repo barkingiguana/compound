@@ -1,6 +1,8 @@
 module BarkingIguana
   module Compound
     class Test
+      extend Forwardable
+
       attr_accessor :suite
       private :suite=
 
@@ -57,8 +59,7 @@ module BarkingIguana
 
       def host_manager
         @host_manger ||= begin
-          # FIXME: Implement uniqueness operators on Host
-          hosts = stages.map(&:hosts).flatten.uniq(&:ip_address).sort
+          hosts = stages.map(&:hosts).flatten.uniq.sort
           HostManager.new(hosts, driver_options)
         end
       end
@@ -97,9 +98,7 @@ module BarkingIguana
         test_file_with_fallback 'Vagrantfile.erb'
       end
 
-      def hosts
-        host_manager.all
-      end
+      def_delegator :host_manager, :all, :hosts
     end
   end
 end

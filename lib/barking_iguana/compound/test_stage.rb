@@ -1,6 +1,8 @@
 module BarkingIguana
   module Compound
     class TestStage
+      extend Forwardable
+
       attr_accessor :test, :directory
 
       def initialize test, directory
@@ -88,14 +90,6 @@ module BarkingIguana
         end
       end
 
-      def hosts
-        original_inventory.hosts
-      end
-
-      def control_directory
-        test.suite.control_directory
-      end
-
       def ansible_verbosity
         return 2 unless ENV['ANSIBLE_VERBOSITY']
         ENV['ANSIBLE_VERBOSITY'].to_i
@@ -103,10 +97,6 @@ module BarkingIguana
 
       def playbook
         Ansible.playbook(playbook_path, run_from: control_directory).inventory(generated_inventory).stream_to(logger).verbosity(ansible_verbosity).diff
-      end
-
-      def suite
-        test.suite
       end
 
       def setup
@@ -122,10 +112,6 @@ module BarkingIguana
         host_manager.shutdown *hosts_to_stop
       end
 
-      def host_manager
-        test.host_manager
-      end
-
       def converge
         unless File.exists? playbook_path
           logger.debug { "Not running anything because #{playbook_path.inspect} does not exist" }
@@ -134,16 +120,18 @@ module BarkingIguana
         playbook.run
       ensure
         logger.debug { "Removing generated inventory from #{generated_inventory}" }
-        # FileUtils.rm_r generated_inventory
-      end
-
-      def verify
-        server_spec.run
+        # TODO: FileUtils.rm_r generated_inventory
       end
 
       def server_spec
         @server_spec ||= ServerSpec.new(self)
       end
+
+      def_delegator :original_inventory, :hosts
+      def_delegator :test, :suite
+      def_delegator :test, :host_manager
+      def_delegator :suite, :control_directory
+      def_delegator :server_spec, :run, :verify
     end
   end
 end

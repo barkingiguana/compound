@@ -1,0 +1,102 @@
+PATH
+  remote: ../../
+  specs:
+    barking_iguana-compound (0.1.7)
+      ansible_spec
+      barking_iguana-benchmark
+      barking_iguana-logging
+      colorize
+      hostlist_expression
+      mixlib-shellout
+      oj
+      rspec-wait
+
+GEM
+  remote: http://rubygems.org/
+  specs:
+    ansible_spec (0.2.16)
+      hostlist_expression
+      oj
+      serverspec (>= 2.0.0)
+      winrm
+    barking_iguana-benchmark (0.1.0)
+    barking_iguana-logging (0.1.5)
+      barking_iguana-otk
+      term-ansicolor
+    barking_iguana-otk (0.1.0)
+    builder (3.2.2)
+    colorize (0.8.1)
+    diff-lcs (1.2.5)
+    erubis (2.7.0)
+    ffi (1.9.14)
+    gssapi (1.2.0)
+      ffi (>= 1.0.1)
+    gyoku (1.3.1)
+      builder (>= 2.1.2)
+    hostlist_expression (0.2.1)
+    httpclient (2.8.3)
+    little-plugger (1.1.4)
+    logging (2.1.0)
+      little-plugger (~> 1.1)
+      multi_json (~> 1.10)
+    mixlib-shellout (2.2.7)
+    multi_json (1.12.1)
+    net-scp (1.2.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (3.2.0)
+    net-telnet (0.1.1)
+    nori (2.6.0)
+    oj (2.18.0)
+    rake (12.0.0)
+    rspec (3.5.0)
+      rspec-core (~> 3.5.0)
+      rspec-expectations (~> 3.5.0)
+      rspec-mocks (~> 3.5.0)
+    rspec-core (3.5.4)
+      rspec-support (~> 3.5.0)
+    rspec-expectations (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-its (1.2.0)
+      rspec-core (>= 3.0.0)
+      rspec-expectations (>= 3.0.0)
+    rspec-mocks (3.5.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.5.0)
+    rspec-support (3.5.0)
+    rspec-wait (0.0.9)
+      rspec (>= 3, < 4)
+    rubyntlm (0.6.1)
+    serverspec (2.37.2)
+      multi_json
+      rspec (~> 3.0)
+      rspec-its
+      specinfra (~> 2.53)
+    sfl (2.3)
+    specinfra (2.66.3)
+      net-scp
+      net-ssh (>= 2.7, < 4.0)
+      net-telnet
+      sfl
+    term-ansicolor (1.4.0)
+      tins (~> 1.0)
+    tins (1.13.0)
+    winrm (2.1.1)
+      builder (>= 2.1.2)
+      erubis (~> 2.7)
+      gssapi (~> 1.2)
+      gyoku (~> 1.0)
+      httpclient (~> 2.2, >= 2.2.0.2)
+      logging (>= 1.6.1, < 3.0)
+      nori (~> 2.0)
+      rubyntlm (~> 0.6.0, >= 0.6.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  barking_iguana-compound!
+  rake
+
+BUNDLED WITH
+   1.13.6

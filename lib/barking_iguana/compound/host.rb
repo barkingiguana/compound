@@ -1,6 +1,8 @@
 module BarkingIguana
   module Compound
     class Host
+      extend Forwardable
+
       attr_accessor :inventory_name, :ip_address, :state
 
       def initialize(name:, ip_address:)
@@ -32,6 +34,12 @@ module BarkingIguana
 
       def ssh_extra_args
         '-o StrictHostKeyChecking=no'
+      end
+
+      def_delegator :inventory_name, :hash
+
+      def eql? other
+        inventory_name == other.inventory_name
       end
     end
   end

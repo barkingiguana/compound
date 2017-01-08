@@ -1,0 +1,11 @@
+---
+- name: Example Playbook
+  hosts: example-host
+  tasks:
+    - name: Create a file
+      become: yes
+      file:
+        path: /tmp/example-file
+        owner: root
+        group: root
+        state: touch

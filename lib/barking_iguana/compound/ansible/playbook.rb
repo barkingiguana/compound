@@ -66,8 +66,6 @@ module BarkingIguana
           FileUtils.remove_file wrapper_playbook, true
         end
 
-        # TODO: Symlink the playbook to wrapper_playbook.path
-        # so we can use the group_vars, host_vars, etc.
         def playbook_paths
           return file unless run_from
           tempfile = wrapper_playbook

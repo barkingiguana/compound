@@ -2,6 +2,7 @@ require 'barking_iguana/logging'
 require 'barking_iguana/benchmark'
 
 require 'erb'
+require 'forwardable'
 require 'mixlib/shellout'
 require 'hostlist_expression'
 require 'oj'

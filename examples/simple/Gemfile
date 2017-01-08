@@ -1,0 +1,4 @@
+source 'http://rubygems.org'
+
+gem "barking_iguana-compound", path: "../../"
+gem "rake"

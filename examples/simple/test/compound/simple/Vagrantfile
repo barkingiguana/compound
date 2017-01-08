@@ -5,12 +5,12 @@ Vagrant.configure(2) do |config|
     vb.memory = "512"
   end
 
-  <% hosts.each do |host| %>
-  config.vm.define "<%= host.name %>" do |this|
-    this.vm.hostname = "<%= host.name %>"
-    this.vm.network "private_network", ip: "<%= host.ip_address %>"
+  
+  config.vm.define "example-host" do |this|
+    this.vm.hostname = "example-host"
+    this.vm.network "private_network", ip: "10.8.42.10"
   end
-  <% end %>
+  
 
   config.ssh.username   = "vagrant"
   config.ssh.password   = "vagrant"

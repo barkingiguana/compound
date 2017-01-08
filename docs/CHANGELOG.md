@@ -6,6 +6,12 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Add a simple example in lieu of tests.
+
+  * Code clean-up including using `Forwardable` to avoid lots of tiny
+    forwarding methods, and correctly namespacing the `ServerSpec` and
+    `Vagrant` classes. Sorry for polluting your programmes!
+
 ## *0.1.7* (2017-01-06)
 
   * Allow setting the Vagrantfile.erb template in the root of the test suite to

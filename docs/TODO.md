@@ -7,6 +7,4 @@
 
 * Tests. So ironic that a testing tool has no tests. For release 1.0.0 we need tests.
 
-* A host doesn't have a `uri`, it's got an IP address.
-
 * We should support the ansible remote user attributes in the inventory, for each host.
