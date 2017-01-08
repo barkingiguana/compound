@@ -120,7 +120,7 @@ module BarkingIguana
         playbook.run
       ensure
         logger.debug { "Removing generated inventory from #{generated_inventory}" }
-        # TODO: FileUtils.rm_r generated_inventory
+        FileUtils.rm_r generated_inventory
       end
 
       def server_spec

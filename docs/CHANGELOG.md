@@ -6,6 +6,8 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Clean up the generated inventory after the test has run.
+
   * Add a simple example in lieu of tests.
 
   * Code clean-up including using `Forwardable` to avoid lots of tiny
