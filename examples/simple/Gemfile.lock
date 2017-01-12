@@ -1,7 +1,7 @@
 PATH
   remote: ../../
   specs:
-    barking_iguana-compound (0.1.7)
+    barking_iguana-compound (0.1.8)
       ansible_spec
       barking_iguana-benchmark
       barking_iguana-logging
@@ -19,8 +19,8 @@ GEM
       oj
       serverspec (>= 2.0.0)
       winrm
-    barking_iguana-benchmark (0.1.0)
-    barking_iguana-logging (0.1.5)
+    barking_iguana-benchmark (0.1.1)
+    barking_iguana-logging (0.1.6)
       barking_iguana-otk
       term-ansicolor
     barking_iguana-otk (0.1.0)
@@ -99,4 +99,4 @@ DEPENDENCIES
   rake
 
 BUNDLED WITH
-   1.13.6
+   1.13.7

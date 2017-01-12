@@ -6,6 +6,9 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Only generate per-stage per-action tasks if the ENV variable `DEBUG` is set
+    (to anything that's not the empty string).
+
 ## *0.1.8* (2017-01-08)
 
   * Clean up the generated inventory after the test has run.
