@@ -2,7 +2,9 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.11* (Current Development)
+## *0.1.12* (Current Development)
+
+## *0.1.11* (2017-01-17)
 
   * Increase wait time for Ansible Playbook run to 1 hour instead of teh default
     10 minutes.
