@@ -8,3 +8,5 @@
 * Tests. So ironic that a testing tool has no tests. For release 1.0.0 we need tests.
 
 * We should support the ansible remote user attributes in the inventory, for each host.
+
+* Rewrite the InventoryParser so it's understandable!

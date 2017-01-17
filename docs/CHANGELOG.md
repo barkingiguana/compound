@@ -6,6 +6,9 @@ Entries are in reverse chronological order.
 
 Add release notes here, as things are added to the project.
 
+  * Bug fix: Ignore group variables in inventories. Previously these were
+    treated as hosts.
+
 ## *0.1.9* (2017-01-12)
 
   * Only generate per-stage per-action tasks if the ENV variable `DEBUG` is set

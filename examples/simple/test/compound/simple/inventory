@@ -1,2 +1,5 @@
 [example]
 example-host
+
+[example:vars]
+inventory_var=testing

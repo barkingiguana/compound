@@ -10,13 +10,14 @@ module BarkingIguana
         end
 
         def hostgroups
-          InventoryParser.load_targets path
+          hg = InventoryParser.load_targets path
+          hg.reject! do |k,v|
+            k =~ /:vars$/
+          end
         end
 
         def hosts
-          h = hostgroups
-          h.reject! { |hg| hg[0].empty? }
-          hosts = h.values.flatten.uniq { |h| h['uri'] }
+          hosts = hostgroups.values.flatten.compact.uniq { |h| h['uri'] }
           hosts.map do |data|
             name = data['name'].gsub(/ .*/, '')
             Host.new name: name, ip_address: data['uri']
