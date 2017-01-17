@@ -10,3 +10,5 @@
 * We should support the ansible remote user attributes in the inventory, for each host.
 
 * Rewrite the InventoryParser so it's understandable!
+
+* Make command timeouts customiseable.

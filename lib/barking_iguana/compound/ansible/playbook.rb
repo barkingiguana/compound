@@ -51,6 +51,7 @@ module BarkingIguana
           options = {}
           options[:cwd] = run_from if run_from
           options[:live_stream] = io if io
+          options[:timeout] = 3600
           c = Mixlib::ShellOut.new(command, options)
           c.run_command
           c.error!
