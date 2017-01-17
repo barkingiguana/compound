@@ -2,9 +2,11 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.10* (Current Development)
+## *0.1.11* (Current Development)
 
 Add release notes here, as things are added to the project.
+
+## *0.1.10* (2017-01-17)
 
   * Bug fix: Ignore group variables in inventories. Previously these were
     treated as hosts.
