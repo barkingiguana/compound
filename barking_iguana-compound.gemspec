@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'barking_iguana-logging'
   spec.add_dependency 'barking_iguana-benchmark'
+  spec.add_dependency 'barking_iguana-fork_calls'
   spec.add_dependency 'mixlib-shellout'
   spec.add_dependency 'rspec-wait'
   spec.add_dependency 'ansible_spec'

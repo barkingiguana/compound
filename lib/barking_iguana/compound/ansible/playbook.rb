@@ -48,19 +48,26 @@ module BarkingIguana
         end
 
         def run
-          options = {}
-          options[:cwd] = run_from if run_from
-          options[:live_stream] = io if io
-          options[:timeout] = 3600
-          c = Mixlib::ShellOut.new(command, options)
-          c.run_command
-          c.error!
+          command.run_command
+          command.error!
           self
         ensure
           clean_up
         end
 
         private
+
+        def command
+          @command ||= Mixlib::ShellOut.new(command_line, command_options)
+        end
+
+        def command_options
+          options = {}
+          options[:cwd] = run_from if run_from
+          options[:live_stream] = io if io
+          options[:timeout] = 3600
+          options
+        end
 
         def clean_up
           return unless run_from
@@ -86,7 +93,7 @@ module BarkingIguana
           end
         end
 
-        def command
+        def command_line
           c = ["env ANSIBLE_RETRY_FILES_ENABLED=no ansible-playbook #{playbook_paths}"]
           inventory_paths.each do |i|
             c << "-i #{i}"

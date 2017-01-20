@@ -4,6 +4,9 @@ Entries are in reverse chronological order.
 
 ## *0.1.12* (Current Development)
 
+  * Initial support for testing the results of the playbook run, to check for
+    number of changes applied by `ansible-playbook`.
+
 ## *0.1.11* (2017-01-17)
 
   * Increase wait time for Ansible Playbook run to 1 hour instead of teh default

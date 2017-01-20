@@ -35,7 +35,7 @@ module BarkingIguana
       def host_tests
         hosts.inject({}) do |a,e|
           name = e.name
-          glob = "#{root_dir}/{#{name}/**/*_,}spec.rb"
+          glob = "#{root_dir}/#{name}/**/*_spec.rb"
           logger.debug { "Host glob for #{name.inspect} = #{glob.inspect}" }
           tests = Dir.glob glob
           logger.debug { "Host tests for #{name.inspect} = #{tests.inspect}" }
@@ -50,7 +50,7 @@ module BarkingIguana
       end
 
       def spec_helper
-        File.expand_path '../../../../resources/spec_helper.rb', __FILE__
+        File.expand_path '../../../../resources/server_spec_helper.rb', __FILE__
       end
 
       def_delegator :stage, :test

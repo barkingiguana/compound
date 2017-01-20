@@ -1,9 +1,10 @@
 PATH
   remote: ../../
   specs:
-    barking_iguana-compound (0.1.9)
+    barking_iguana-compound (0.1.11)
       ansible_spec
       barking_iguana-benchmark
+      barking_iguana-fork_calls
       barking_iguana-logging
       colorize
       hostlist_expression
@@ -20,13 +21,14 @@ GEM
       serverspec (>= 2.0.0)
       winrm
     barking_iguana-benchmark (0.1.1)
+    barking_iguana-fork_calls (0.1.0)
     barking_iguana-logging (0.1.7)
       barking_iguana-otk
       term-ansicolor
     barking_iguana-otk (0.1.0)
     builder (3.2.3)
     colorize (0.8.1)
-    diff-lcs (1.2.5)
+    diff-lcs (1.3)
     erubis (2.7.0)
     ffi (1.9.17)
     gssapi (1.2.0)
@@ -73,7 +75,7 @@ GEM
       rspec-its
       specinfra (~> 2.53)
     sfl (2.3)
-    specinfra (2.66.4)
+    specinfra (2.66.5)
       net-scp
       net-ssh (>= 2.7, < 5.0)
       net-telnet

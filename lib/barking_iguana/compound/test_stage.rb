@@ -68,9 +68,17 @@ module BarkingIguana
         @generated_inventory ||= generate_inventory
       end
 
+      def tmp_dir *sub_path
+        @tmp_dir ||= Dir.mktmpdir
+        return @tmp_dir if sub_path.empty?
+        full_path = File.expand_path File.join(sub_path), @tmp_dir
+        FileUtils.mkdir_p full_path
+        full_path
+      end
+
       def generate_inventory
         benchmark "#{name}: generating inventory for test stage" do
-          Dir.mktmpdir('inventory').tap do |d|
+          tmp_dir('inventory').tap do |d|
             logger.debug { "#{name}: inventory directory is #{d.inspect}" }
             connection_file = File.expand_path 'connection', d
             Ansible::InventoryWriter.new(connection_file).tap do |i|
@@ -96,7 +104,11 @@ module BarkingIguana
       end
 
       def playbook
-        Ansible.playbook(playbook_path, run_from: control_directory).inventory(generated_inventory).stream_to(logger).verbosity(ansible_verbosity).diff
+        Ansible.playbook(playbook_path, run_from: control_directory).inventory(generated_inventory).stream_to(playbook_logger).verbosity(ansible_verbosity).diff
+      end
+
+      def playbook_logger
+        @playbook_logger ||= BarkingIguana::ForkCalls.fork_to(logger, results_logger)
       end
 
       def setup
@@ -123,15 +135,41 @@ module BarkingIguana
         FileUtils.rm_r generated_inventory
       end
 
-      def server_spec
-        @server_spec ||= ServerSpec.new(self)
+      def clean_up
+        logger.debug { "Removing temporary directory for stage #{name} from #{tmp_dir}" }
+        FileUtils.rm_r tmp_dir
       end
 
       def_delegator :original_inventory, :hosts
       def_delegator :test, :suite
       def_delegator :test, :host_manager
       def_delegator :suite, :control_directory
-      def_delegator :server_spec, :run, :verify
+
+      def verify
+        server_spec.run
+        ansible_spec.run
+      end
+
+      def results_file
+        @results_file ||= File.expand_path('playbook.out', tmp_dir('results', 'ansible'))
+      end
+
+      private
+
+      def server_spec
+        @server_spec ||= ServerSpec.new(self)
+      end
+
+      def ansible_spec
+        @ansible_spec ||= AnsibleSpec.new(self)
+      end
+
+      def results_logger
+        @results_logger ||= ::Logger.new(results_file).tap do |l|
+          l.level = ::Logger::DEBUG
+          l.formatter = lambda { |_, _, _, message| message }
+        end
+      end
     end
   end
 end
