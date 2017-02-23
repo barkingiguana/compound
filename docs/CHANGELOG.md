@@ -2,9 +2,14 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.13* (Current Development)
+## *0.1.14* (Current Development)
 
   * ...
+
+## *0.1.13* (2017-02-23)
+
+  * Bug fix: `reject!` won't always return the `Hash`. We need to return
+    that explicitly.
 
 ## *0.1.12* (2017-02-23)
 

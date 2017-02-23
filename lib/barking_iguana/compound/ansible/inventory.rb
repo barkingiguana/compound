@@ -14,6 +14,7 @@ module BarkingIguana
           hg.reject! do |k,v|
             k =~ /:vars$/
           end
+          hg
         end
 
         def hosts
