@@ -2,7 +2,11 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.12* (Current Development)
+## *0.1.13* (Current Development)
+
+  * ...
+
+## *0.1.12* (2017-02-23)
 
   * Initial support for testing the results of the playbook run, to check for
     number of changes applied by `ansible-playbook`.
