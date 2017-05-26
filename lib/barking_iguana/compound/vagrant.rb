@@ -34,7 +34,7 @@ module BarkingIguana
           logger.debug { "COMMAND: #{command.inspect}, PASSED_ARGS: #{passed_args.inspect}, ALWAYS_ARGS: #{always_args.inspect}" }
           merged_args = ([always_args] + passed_args).flatten.join(' ').strip
           logger.debug { "MERGED ARGS: #{merged_args.inspect}" }
-          command_line = "/usr/local/bin/vagrant #{command} #{merged_args}".strip
+          command_line = "vagrant #{command} #{merged_args}".strip
           logger.debug { "COMMAND LINE: #{command_line.inspect}" }
           logger.debug { "COMMAND ENV: #{environment.inspect}" }
           c = Mixlib::ShellOut.new command_line, cwd: root, env: environment.to_h, live_stream: logger
