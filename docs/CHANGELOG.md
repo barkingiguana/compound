@@ -2,9 +2,14 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.14* (Current Development)
+## *0.1.15* (Current Development)
 
   * ...
+
+## *0.1.14* (2017-05-26)
+
+  * Bug fix: the path to Vagrant isn't always `/usr/local/bin`. Remove the
+    hard coding and rely on $PATH. [#1]
 
 ## *0.1.13* (2017-02-23)
 
