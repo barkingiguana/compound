@@ -2,9 +2,16 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.15* (Current Development)
+## *0.1.16* (Current Development)
 
   * ...
+
+## *0.1.15* (2017-09-25)
+
+  * Performance improvement: don't query Vagrant for each host for status
+    individually when building the connection inventory. This mostly affects
+    test inventories that have large-ish collections of hosts, and saves
+    approx 30s per host.
 
 ## *0.1.14* (2017-05-26)
 

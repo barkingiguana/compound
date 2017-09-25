@@ -83,8 +83,8 @@ module BarkingIguana
             connection_file = File.expand_path 'connection', d
             Ansible::InventoryWriter.new(connection_file).tap do |i|
               benchmark "#{name}: generating connection inventory at #{connection_file}" do
-                hosts.each do |host|
-                  h = test.host_manager.find_by_name host.inventory_name
+                test_hosts = test.host_manager.find_all_by_name hosts.map(&:inventory_name)
+                test_hosts.each do |h|
                   i.add_host h
                 end
                 logger.debug { "#{name}: writing connection inventory:\n#{i.to_s}" }
