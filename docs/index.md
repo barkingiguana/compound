@@ -205,6 +205,13 @@ You can see a list of all tests by asking Rake to list them:
 
     $ bundle exec rake -T
 
+### Changing group vars during Ansible runs
+
+Somtimes you'll want to experiement with changing `group_vars` values in
+your tests. You can do this by adding a `extra_vars.json` file to either the
+test stage directory or to the test directory. This will tack an
+`--extra-vars=@path/to/the/extra_vars.json` to the `ansible-playbook` run.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run
@@ -218,7 +225,7 @@ git commits and tags, and push the `.gem` file to [rubygems.org][0].
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/barkingiguana/compound.
+Bug reports and pull requests are welcome on GitHub at [barkingiguana/compound][3].
 
 If you'd like to contribute features, please do discuss them by opening an issue on GitHub.
 
@@ -230,3 +237,4 @@ Please keep [docs/CHANGELOG.md][2] updated as you add/remove/change things.
 [0]: https://rubygems.org
 [1]: http://barkingiguana.com/compound/TODO
 [2]: http://barkingiguana.com/compound/CHANGELOG
+[3]: https://github.com/barkingiguana/compound

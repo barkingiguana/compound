@@ -2,7 +2,7 @@ module BarkingIguana
   module Compound
     module Ansible
       class Playbook
-        attr_accessor :file, :inventory_paths, :limit_pattern, :run_from, :user_name, :private_key_file, :io, :output_verbosity, :show_diff
+        attr_accessor :file, :inventory_paths, :limit_pattern, :run_from, :user_name, :private_key_file, :io, :output_verbosity, :show_diff, :extra_vars_file
 
         def initialize file, run_from: nil
           self.file = file
@@ -14,6 +14,11 @@ module BarkingIguana
 
         def verbosity n
           self.output_verbosity = n.to_i
+          self
+        end
+
+        def extra_vars path
+          self.extra_vars_path = path
           self
         end
 
@@ -103,6 +108,7 @@ module BarkingIguana
           c << "-#{'v' * output_verbosity}" if output_verbosity > 0
           c << "--diff" if show_diff
           c << "--private-key=#{private_key_file}" unless private_key_file.nil?
+          c << "--extra-vars=@#{extra_vars_file}" unless extra_vars_file.nil?
           c.join ' '
         end
       end

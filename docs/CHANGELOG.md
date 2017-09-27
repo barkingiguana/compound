@@ -2,9 +2,15 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.16* (Current Development)
+## *0.1.17* (Current Development)
 
   * ...
+
+## *0.1.16* (2017-09-27)
+
+  * Support extra vars files per stage and per suite, in the form on an
+    `extra_vars.json` in the stage directory, with a fallback to the suite
+    directory.
 
 ## *0.1.15* (2017-09-25)
 

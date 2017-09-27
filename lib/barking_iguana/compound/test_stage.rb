@@ -56,6 +56,14 @@ module BarkingIguana
         test_file
       end
 
+      def extra_vars?
+        File.exists? extra_vars_path
+      end
+
+      def extra_vars_path
+        @extra_vars_path ||= stage_file_with_fallback('extra_vars.json')
+      end
+
       def playbook_path
         @playbook_path ||= stage_file_with_fallback('playbook.yml')
       end
@@ -104,7 +112,13 @@ module BarkingIguana
       end
 
       def playbook
-        Ansible.playbook(playbook_path, run_from: control_directory).inventory(generated_inventory).stream_to(playbook_logger).verbosity(ansible_verbosity).diff
+        Ansible.playbook(playbook_path, run_from: control_directory).tap { |p|
+          p.inventory(generated_inventory)
+          p.stream_to(playbook_logger)
+          p.verbosity(ansible_verbosity)
+          p.diff
+          p.extra_vars extra_vars_path if extra_vars?
+        }
       end
 
       def playbook_logger
