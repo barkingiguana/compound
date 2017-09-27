@@ -18,7 +18,7 @@ module BarkingIguana
         end
 
         def extra_vars path
-          self.extra_vars_path = path
+          self.extra_vars_file = path
           self
         end
 

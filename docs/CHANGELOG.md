@@ -2,9 +2,13 @@
 
 Entries are in reverse chronological order.
 
-## *0.1.17* (Current Development)
+## *0.1.18* (Current Development)
 
   * ...
+
+## *0.1.17* (2017-09-27)
+
+  * Bug fix: I made a typo
 
 ## *0.1.16* (2017-09-27)
 
