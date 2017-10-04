@@ -119,7 +119,7 @@ The inventory file for each stage lives in the stage directory in a file called
 These are normal Ansible inventory files:
 
 ```
-[all:children]
+[app:children]
 web
 application
 database
@@ -150,7 +150,7 @@ For our setup action we'll apply the `hosts` role to all hosts.
 
 ```
 ---
-- hosts: all
+- hosts: app
   roles:
     - hosts
 ```
